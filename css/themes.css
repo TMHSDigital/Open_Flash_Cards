@@ -1,68 +1,208 @@
 /* Light Theme (Default) */
 :root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f5f5f5;
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --border-color: #dddddd;
+    /* Background Colors */
+    --bg-primary: var(--color-white);
+    --bg-secondary: var(--color-light-gray);
+    --bg-tertiary: var(--color-medium-gray);
+
+    /* Text Colors */
+    --text-primary: var(--color-black);
+    --text-secondary: var(--color-dark-gray);
+    --text-muted: var(--color-medium-gray);
+
+    /* Border Colors */
+    --border-primary: var(--color-medium-gray);
+    --border-secondary: var(--color-light-gray);
+
+    /* Shadow Colors */
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --card-bg: #ffffff;
-    --hover-bg: #f0f0f0;
+    --shadow-color-hover: rgba(0, 0, 0, 0.15);
+
+    /* Card Colors */
+    --card-bg: var(--color-white);
+    --card-border: var(--color-medium-gray);
+    --card-hover-bg: var(--color-white);
+    --card-hover-border: var(--color-primary);
+
+    /* Input Colors */
+    --input-bg: var(--color-white);
+    --input-border: var(--color-medium-gray);
+    --input-focus-border: var(--color-primary);
+    --input-focus-shadow: rgba(37, 99, 235, 0.1);
+
+    /* Button Colors */
+    --btn-primary-bg: var(--color-primary);
+    --btn-primary-hover: var(--color-primary-dark);
+    --btn-secondary-bg: var(--color-light-gray);
+    --btn-secondary-hover: var(--color-medium-gray);
+    --btn-text: var(--color-white);
+    --btn-secondary-text: var(--color-black);
 }
 
 /* Dark Theme */
 [data-theme="dark"] {
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2d2d2d;
-    --text-primary: #ffffff;
-    --text-secondary: #b3b3b3;
-    --border-color: #404040;
+    /* Background Colors */
+    --bg-primary: #1a1b1e;
+    --bg-secondary: #2c2e33;
+    --bg-tertiary: #373a40;
+
+    /* Text Colors */
+    --text-primary: #e9ecef;
+    --text-secondary: #adb5bd;
+    --text-muted: #6c757d;
+
+    /* Border Colors */
+    --border-primary: #373a40;
+    --border-secondary: #2c2e33;
+
+    /* Shadow Colors */
     --shadow-color: rgba(0, 0, 0, 0.3);
-    --card-bg: #2d2d2d;
-    --hover-bg: #404040;
+    --shadow-color-hover: rgba(0, 0, 0, 0.4);
+
+    /* Card Colors */
+    --card-bg: #2c2e33;
+    --card-border: #373a40;
+    --card-hover-bg: #2c2e33;
+    --card-hover-border: var(--color-primary);
+
+    /* Input Colors */
+    --input-bg: #2c2e33;
+    --input-border: #373a40;
+    --input-focus-border: var(--color-primary);
+    --input-focus-shadow: rgba(37, 99, 235, 0.2);
+
+    /* Button Colors */
+    --btn-primary-bg: var(--color-primary);
+    --btn-primary-hover: var(--color-primary-dark);
+    --btn-secondary-bg: #373a40;
+    --btn-secondary-hover: #40434a;
+    --btn-text: var(--color-white);
+    --btn-secondary-text: var(--color-white);
 }
 
-/* Apply theme variables */
+/* Apply Theme Variables */
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-.sidebar {
-    background-color: var(--bg-primary);
-    border-right: 1px solid var(--border-color);
-}
-
-.deck-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-}
-
-.card-inner {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-}
-
-.modal-content {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-}
-
-.btn {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
 }
 
-.btn:hover {
-    background-color: var(--hover-bg);
-}
-
-input, textarea, select {
+.app-container {
     background-color: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
 }
 
-input::placeholder, textarea::placeholder {
+.sidebar {
+    background-color: var(--bg-primary);
+    border-color: var(--border-primary);
+}
+
+.nav-tab {
     color: var(--text-secondary);
+}
+
+.nav-tab:hover {
+    background-color: var(--bg-secondary);
+    color: var(--color-primary);
+}
+
+.nav-tab.active {
+    background-color: var(--color-primary);
+    color: var(--btn-text);
+}
+
+.deck-card {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+}
+
+.deck-card:hover {
+    border-color: var(--card-hover-border);
+}
+
+.deck-card h3 {
+    color: var(--text-primary);
+}
+
+.deck-stats {
+    color: var(--text-secondary);
+}
+
+.card-inner {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+}
+
+.modal-content {
+    background-color: var(--bg-primary);
+    border-color: var(--border-primary);
+}
+
+.form-group label {
+    color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group textarea {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text-primary);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 0 2px var(--input-focus-shadow);
+}
+
+.btn {
+    color: var(--btn-text);
+}
+
+.btn.primary {
+    background-color: var(--btn-primary-bg);
+}
+
+.btn.primary:hover {
+    background-color: var(--btn-primary-hover);
+}
+
+.btn:not(.primary) {
+    background-color: var(--btn-secondary-bg);
+    color: var(--btn-secondary-text);
+}
+
+.btn:not(.primary):hover {
+    background-color: var(--btn-secondary-hover);
+}
+
+/* Placeholder Colors */
+::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* Selection Colors */
+::selection {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* Settings Section Theme */
+.settings-section {
+    background-color: var(--bg-primary);
+    border-color: var(--border-primary);
+}
+
+.settings-section h3 {
+    color: var(--text-primary);
+}
+
+select {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text-primary);
+}
+
+select:focus {
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 0 2px var(--input-focus-shadow);
 } 
