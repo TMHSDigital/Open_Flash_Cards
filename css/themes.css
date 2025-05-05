@@ -1,0 +1,68 @@
+/* Light Theme (Default) */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #dddddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --card-bg: #ffffff;
+    --hover-bg: #f0f0f0;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --card-bg: #2d2d2d;
+    --hover-bg: #404040;
+}
+
+/* Apply theme variables */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.sidebar {
+    background-color: var(--bg-primary);
+    border-right: 1px solid var(--border-color);
+}
+
+.deck-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.card-inner {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.modal-content {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.btn:hover {
+    background-color: var(--hover-bg);
+}
+
+input, textarea, select {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--text-secondary);
+} 
