@@ -33,6 +33,13 @@ export class UIManager {
                 this.handleCardRating(parseInt(e.target.dataset.rating));
             }
         });
+
+        // Enable/disable Create button based on deck name input
+        const deckNameInput = document.getElementById('deck-name');
+        const createDeckSubmit = document.getElementById('create-deck-submit');
+        deckNameInput.addEventListener('input', () => {
+            createDeckSubmit.disabled = deckNameInput.value.trim() === '';
+        });
     }
 
     setupTabNavigation() {
