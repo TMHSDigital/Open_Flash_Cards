@@ -130,6 +130,10 @@ Example deck JSON:
 - Uses modern JavaScript features
 - Local Storage API for data persistence
 
+### Security
+- robots.txt configured to prevent web scraping
+- Local storage for data persistence (no server-side storage)
+
 ### File Structure
 ```
 flashcards/
