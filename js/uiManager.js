@@ -123,10 +123,30 @@ export class UIManager {
         document.removeEventListener('keydown', this._handleDeckModalKeydown);
     }
 
-    // Handle Esc key for deck modal
+    // Handle Esc key and focus trap for deck modal
     _handleDeckModalKeydown = (e) => {
         if (e.key === 'Escape') {
             this.hideDeckModal();
+            return;
+        }
+        if (e.key === 'Tab') {
+            const modal = document.getElementById('deck-modal');
+            const focusable = modal.querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])');
+            const focusableEls = Array.from(focusable).filter(el => !el.disabled && el.offsetParent !== null);
+            if (focusableEls.length === 0) return;
+            const first = focusableEls[0];
+            const last = focusableEls[focusableEls.length - 1];
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    last.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    first.focus();
+                    e.preventDefault();
+                }
+            }
         }
     }
 
