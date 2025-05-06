@@ -478,4 +478,28 @@ select:focus {
 #deck-form textarea {
     min-height: 100px;
     resize: vertical;
+}
+
+/* Modal Close Button */
+.modal-close {
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-dark-gray);
+    cursor: pointer;
+    line-height: 1;
+    z-index: 10;
+    padding: 0;
+    transition: color var(--transition-default), background var(--transition-default);
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: var(--color-primary);
+    background: var(--color-light-gray);
+    outline: none;
+    border-radius: var(--radius-full);
 } 
