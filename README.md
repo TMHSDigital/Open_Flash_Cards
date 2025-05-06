@@ -1,10 +1,22 @@
-# Interactive Study Flashcards System
+# <div align="center">Interactive Study Flashcards System</div>
+
+<div align="center">
+
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Version](https://img.shields.io/badge/Version-1.0.0-blue)
 
 A modern, responsive web application for creating and studying flashcards with spaced repetition learning. Built with vanilla HTML, CSS, and JavaScript.
 
-## Features
+[Features](#features) • [Setup](#setup) • [Usage](#usage) • [Contributing](#contributing)
 
-### Core Features
+</div>
+
+## <div align="center">Features</div>
+
+### <div align="center">Core Features</div>
 - Create, edit, and delete flashcard decks
 - Add cards with text and optional images (via Add Card button on each deck)
 - Study mode with spaced repetition (SM-2 algorithm)
@@ -12,7 +24,7 @@ A modern, responsive web application for creating and studying flashcards with s
 - Import/Export functionality
 - Local storage for data persistence
 
-### UI/UX Features
+### <div align="center">UI/UX Features</div>
 - Clean, modern interface with consistent design system
 - Light/Dark theme support
 - Responsive design for all screen sizes
@@ -26,7 +38,7 @@ A modern, responsive web application for creating and studying flashcards with s
 - Modals support Esc to close, focus trap, and overlay click to close
 - Error messages and validation for deck and card creation
 
-### Design System
+### <div align="center">Design System</div>
 - Modern color palette with semantic colors
 - Typography system with Inter font family
 - Consistent spacing scale
@@ -36,7 +48,7 @@ A modern, responsive web application for creating and studying flashcards with s
 - Component-specific styles
 - Responsive breakpoints
 
-## Setup
+## <div align="center">Setup</div>
 
 1. Clone the repository:
 ```bash
@@ -55,14 +67,14 @@ npx serve
 
 3. Visit `http://localhost:8000` in your browser
 
-## Usage
+## <div align="center">Usage</div>
 
-### Creating Decks
+### <div align="center">Creating Decks</div>
 1. Click "Create New Deck" button
 2. Enter deck name and optional description
 3. Click "Create" to save
 
-### Adding Cards
+### <div align="center">Adding Cards</div>
 1. Click the "Add Card" button on a deck card
 2. Use the toggle to switch between Single and Bulk Add modes
 3. In Bulk Add mode, paste multiple cards (one per line, use `|` to separate front and back)
@@ -74,7 +86,7 @@ npx serve
 4. Click "Add" to save all valid cards
 5. Invalid lines are skipped and reported
 
-### Bulk Import Template
+### <div align="center">Bulk Import Template</div>
 - Click "View Template" in the Add Card modal to see example cards and format
 - Template includes:
   - Format instructions
@@ -86,25 +98,25 @@ npx serve
   - Download the template file
   - Copy examples directly from the modal
 
-### Editing/Deleting Cards
+### <div align="center">Editing/Deleting Cards</div>
 - (Coming soon: UI for editing and deleting individual cards within a deck)
 
-### Studying
+### <div align="center">Studying</div>
 1. Click "Study" on any deck
 2. Use the "Flip" button to reveal answers
 3. Rate your recall (1-5)
 4. Cards will be scheduled for review based on your performance
 
-### Theme Switching
+### <div align="center">Theme Switching</div>
 1. Go to Settings tab
 2. Select Light or Dark theme
 3. Theme preference is saved automatically
 
-### Import/Export
+### <div align="center">Import/Export</div>
 - Use the "Export" button to download your decks as JSON
 - Use the "Import" button to restore decks from a JSON file
 
-## Data Structure
+## <div align="center">Data Structure</div>
 
 Example deck JSON:
 ```json
@@ -129,24 +141,24 @@ Example deck JSON:
 }
 ```
 
-## Technical Details
+## <div align="center">Technical Details</div>
 
-### Browser Support
+### <div align="center">Browser Support</div>
 - Chrome (latest)
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
 
-### Dependencies
+### <div align="center">Dependencies</div>
 - No external dependencies
 - Uses modern JavaScript features
 - Local Storage API for data persistence
 
-### Security
+### <div align="center">Security</div>
 - robots.txt configured to prevent web scraping
 - Local storage for data persistence (no server-side storage)
 
-### File Structure
+### <div align="center">File Structure</div>
 ```
 flashcards/
 ├── css/
@@ -164,11 +176,11 @@ flashcards/
 └── README.md
 ```
 
-## License
+## <div align="center">License</div>
 
 MIT License - feel free to use this project for any purpose.
 
-## Contributing
+## <div align="center">Contributing</div>
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -176,6 +188,10 @@ MIT License - feel free to use this project for any purpose.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Create a Pull Request
 
-## Author
+## <div align="center">Author</div>
 
-TMHSDigital - [GitHub Profile](https://github.com/TMHSDigital)
+<div align="center">
+
+[TMHSDigital](https://github.com/TMHSDigital)
+
+</div>
