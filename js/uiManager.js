@@ -111,11 +111,20 @@ export class UIManager {
 
     showDeckModal() {
         document.getElementById('deck-modal').classList.add('active');
+        document.addEventListener('keydown', this._handleDeckModalKeydown);
     }
 
     hideDeckModal() {
         document.getElementById('deck-modal').classList.remove('active');
         document.getElementById('deck-form').reset();
+        document.removeEventListener('keydown', this._handleDeckModalKeydown);
+    }
+
+    // Handle Esc key for deck modal
+    _handleDeckModalKeydown = (e) => {
+        if (e.key === 'Escape') {
+            this.hideDeckModal();
+        }
     }
 
     async handleDeckSubmit(e) {
