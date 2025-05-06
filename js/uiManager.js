@@ -94,6 +94,7 @@ export class UIManager {
                 </div>
                 <div class="deck-actions">
                     <button class="btn study-btn" data-deck-id="${deck.id}">Study</button>
+                    <button class="btn add-card-btn" data-deck-id="${deck.id}">Add Card</button>
                     <button class="btn edit-btn" data-deck-id="${deck.id}">Edit</button>
                     <button class="btn delete-btn" data-deck-id="${deck.id}">Delete</button>
                 </div>
@@ -128,6 +129,13 @@ export class UIManager {
             btn.addEventListener('click', e => {
                 e.stopPropagation();
                 this.deleteDeck(btn.dataset.deckId);
+            });
+        });
+        // Add Card
+        Array.from(document.querySelectorAll('.add-card-btn')).forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                this.showCardModal(btn.dataset.deckId);
             });
         });
     }
