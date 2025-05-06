@@ -44,6 +44,13 @@ export class UIManager {
                 deckNameError.style.display = 'none';
             }
         });
+
+        // Close deck modal by clicking outside modal-content
+        document.getElementById('deck-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                this.hideDeckModal();
+            }
+        });
     }
 
     setupTabNavigation() {
