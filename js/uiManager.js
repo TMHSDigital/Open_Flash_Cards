@@ -51,6 +51,27 @@ export class UIManager {
                 this.hideDeckModal();
             }
         });
+
+        // Card modal: toggle between single and bulk add
+        const singleAddToggle = document.getElementById('single-add-toggle');
+        const bulkAddToggle = document.getElementById('bulk-add-toggle');
+        const singleAddSection = document.getElementById('single-add-section');
+        const bulkAddSection = document.getElementById('bulk-add-section');
+        let isBulkMode = false;
+        singleAddToggle.addEventListener('click', () => {
+            isBulkMode = false;
+            singleAddToggle.setAttribute('aria-pressed', 'true');
+            bulkAddToggle.setAttribute('aria-pressed', 'false');
+            singleAddSection.style.display = '';
+            bulkAddSection.style.display = 'none';
+        });
+        bulkAddToggle.addEventListener('click', () => {
+            isBulkMode = true;
+            singleAddToggle.setAttribute('aria-pressed', 'false');
+            bulkAddToggle.setAttribute('aria-pressed', 'true');
+            singleAddSection.style.display = 'none';
+            bulkAddSection.style.display = '';
+        });
     }
 
     setupTabNavigation() {
@@ -209,6 +230,37 @@ export class UIManager {
 
     async handleCardSubmit(e) {
         e.preventDefault();
+        const isBulkMode = document.getElementById('bulk-add-section').style.display !== 'none';
+        if (isBulkMode) {
+            // Bulk add logic
+            const bulkInput = document.getElementById('bulk-cards').value;
+            const errorDiv = document.getElementById('bulk-add-error');
+            errorDiv.style.display = 'none';
+            const lines = bulkInput.split('\n').map(line => line.trim()).filter(Boolean);
+            let added = 0;
+            let errors = 0;
+            lines.forEach((line, idx) => {
+                const [front, back] = line.split('|').map(s => s && s.trim());
+                if (front && back) {
+                    this.deckManager.addCard(this.currentDeckId, front, back, '');
+                    added++;
+                } else {
+                    errors++;
+                }
+            });
+            if (added === 0) {
+                errorDiv.textContent = 'No valid cards found. Use "Front | Back" per line.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            if (errors > 0) {
+                errorDiv.textContent = `${added} cards added. ${errors} lines skipped (missing front or back).`;
+                errorDiv.style.display = 'block';
+            }
+            this.hideCardModal();
+            this.renderDecks();
+            return;
+        }
         const front = document.getElementById('card-front').value;
         const back = document.getElementById('card-back').value;
         const imageUrl = document.getElementById('card-image').value;
