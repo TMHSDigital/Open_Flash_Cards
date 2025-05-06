@@ -91,18 +91,32 @@
     <div id="card-modal" class="modal">
         <div class="modal-content">
             <h3>Add New Card</h3>
+            <div class="toggle-group" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                <button type="button" class="btn" id="single-add-toggle" aria-pressed="true">Single</button>
+                <button type="button" class="btn" id="bulk-add-toggle" aria-pressed="false">Bulk Add</button>
+            </div>
             <form id="card-form">
-                <div class="form-group">
-                    <label for="card-front">Front</label>
-                    <textarea id="card-front" required></textarea>
+                <div id="single-add-section">
+                    <div class="form-group">
+                        <label for="card-front">Front</label>
+                        <textarea id="card-front" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-back">Back</label>
+                        <textarea id="card-back" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-image">Image URL (optional)</label>
+                        <input type="url" id="card-image" placeholder="https://...">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="card-back">Back</label>
-                    <textarea id="card-back" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="card-image">Image URL (optional)</label>
-                    <input type="url" id="card-image" placeholder="https://...">
+                <div id="bulk-add-section" style="display:none;">
+                    <div class="form-group">
+                        <label for="bulk-cards">Paste cards (one per line, use <code>|</code> to separate front and back):</label>
+                        <textarea id="bulk-cards" rows="8" placeholder="Front 1 | Back 1\nFront 2 | Back 2"></textarea>
+                    </div>
+                    <div class="form-error" id="bulk-add-error" style="display:none;"></div>
+                    <div class="form-helper" id="bulk-add-helper" style="font-size:0.9em; color:var(--color-dark-gray); margin-bottom:0.5rem;">Example: <code>What is 2+2? | 4</code></div>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn" id="cancel-card">Cancel</button>
