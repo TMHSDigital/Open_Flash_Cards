@@ -221,4 +221,7 @@ MIT License - feel free to use this project for any purpose.
 
 [TMHSDigital](https://github.com/TMHSDigital)
 
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/tmhs.ig/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/tm-hospitality-strategies/?viewAsMember=true)
+
 </div>
