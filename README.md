@@ -6,7 +6,7 @@ A modern, responsive web application for creating and studying flashcards with s
 
 ### Core Features
 - Create, edit, and delete flashcard decks
-- Add cards with text and optional images
+- Add cards with text and optional images (via Add Card button on each deck)
 - Study mode with spaced repetition (SM-2 algorithm)
 - Progress tracking per deck
 - Import/Export functionality
@@ -20,6 +20,11 @@ A modern, responsive web application for creating and studying flashcards with s
 - Card flip animation
 - Modal dialogs for actions
 - Accessible design with proper focus states
+- Each deck card has Study, Add Card, Edit, and Delete buttons
+- Add Card button opens a modal to add a new card to the selected deck
+- All deck actions are accessible and keyboard-friendly
+- Modals support Esc to close, focus trap, and overlay click to close
+- Error messages and validation for deck and card creation
 
 ### Design System
 - Modern color palette with semantic colors
@@ -58,11 +63,13 @@ npx serve
 3. Click "Create" to save
 
 ### Adding Cards
-1. Click on a deck to view its details
-2. Click "Add Card" button
-3. Enter front and back content
-4. Optionally add an image URL
-5. Click "Add" to save
+1. Click the "Add Card" button on a deck card
+2. Enter front and back content (both required)
+3. Optionally add an image URL
+4. Click "Add" to save
+
+### Editing/Deleting Cards
+- (Coming soon: UI for editing and deleting individual cards within a deck)
 
 ### Studying
 1. Click "Study" on any deck
