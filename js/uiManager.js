@@ -16,6 +16,7 @@ export class UIManager {
         document.getElementById('create-deck').addEventListener('click', () => this.showDeckModal());
         document.getElementById('deck-form').addEventListener('submit', (e) => this.handleDeckSubmit(e));
         document.getElementById('cancel-deck').addEventListener('click', () => this.hideDeckModal());
+        document.getElementById('close-deck-modal').addEventListener('click', () => this.hideDeckModal());
 
         // Card creation
         document.getElementById('card-form').addEventListener('submit', (e) => this.handleCardSubmit(e));
