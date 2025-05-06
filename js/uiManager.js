@@ -21,6 +21,7 @@ export class UIManager {
         // Card creation
         document.getElementById('card-form').addEventListener('submit', (e) => this.handleCardSubmit(e));
         document.getElementById('cancel-card').addEventListener('click', () => this.hideCardModal());
+        document.getElementById('template-button').addEventListener('click', () => this.showTemplate());
 
         // Study controls
         document.getElementById('flip-card').addEventListener('click', () => this.handleCardFlip());
@@ -358,5 +359,51 @@ export class UIManager {
 
         // Show deck details in a modal or dedicated section
         // Implementation depends on your UI design
+    }
+
+    showTemplate() {
+        fetch('docs/bulk_import_template.txt')
+            .then(response => response.text())
+            .then(template => {
+                const modal = document.createElement('div');
+                modal.className = 'modal active';
+                modal.innerHTML = `
+                    <div class="modal-content" style="max-width: 600px;">
+                        <button type="button" class="modal-close" aria-label="Close">&times;</button>
+                        <h3>Bulk Import Template</h3>
+                        <pre style="background: var(--color-light-gray); padding: 1rem; border-radius: 4px; overflow-x: auto;">${template}</pre>
+                        <div class="modal-actions">
+                            <button class="btn" onclick="this.closest('.modal').remove()">Close</button>
+                            <button class="btn primary" onclick="this.downloadTemplate()">Download Template</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                // Add close button handler
+                modal.querySelector('.modal-close').addEventListener('click', () => modal.remove());
+                
+                // Add click outside to close
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.remove();
+                });
+
+                // Add download handler
+                window.downloadTemplate = () => {
+                    const blob = new Blob([template], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'bulk_import_template.txt';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                };
+            })
+            .catch(error => {
+                console.error('Error loading template:', error);
+                alert('Error loading template. Please try again.');
+            });
     }
 } 

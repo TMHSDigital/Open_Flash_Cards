@@ -74,6 +74,18 @@ npx serve
 4. Click "Add" to save all valid cards
 5. Invalid lines are skipped and reported
 
+### Bulk Import Template
+- Click "View Template" in the Add Card modal to see example cards and format
+- Template includes:
+  - Format instructions
+  - Example cards
+  - Comments (lines starting with #) are ignored
+  - Empty lines are ignored
+- You can:
+  - View the template in a modal
+  - Download the template file
+  - Copy examples directly from the modal
+
 ### Editing/Deleting Cards
 - (Coming soon: UI for editing and deleting individual cards within a deck)
 
