@@ -502,4 +502,13 @@ select:focus {
     background: var(--color-light-gray);
     outline: none;
     border-radius: var(--radius-full);
+}
+
+.form-error {
+    color: var(--color-error);
+    font-size: var(--text-sm);
+    margin-top: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+    min-height: 1.2em;
+    transition: opacity var(--transition-default);
 } 
