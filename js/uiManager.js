@@ -112,6 +112,9 @@ export class UIManager {
     showDeckModal() {
         document.getElementById('deck-modal').classList.add('active');
         document.addEventListener('keydown', this._handleDeckModalKeydown);
+        setTimeout(() => {
+            document.getElementById('deck-name').focus();
+        }, 0);
     }
 
     hideDeckModal() {
