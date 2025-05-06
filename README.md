@@ -64,9 +64,15 @@ npx serve
 
 ### Adding Cards
 1. Click the "Add Card" button on a deck card
-2. Enter front and back content (both required)
-3. Optionally add an image URL
-4. Click "Add" to save
+2. Use the toggle to switch between Single and Bulk Add modes
+3. In Bulk Add mode, paste multiple cards (one per line, use `|` to separate front and back)
+   - Example:
+     ```
+     What is 2+2? | 4
+     Capital of France | Paris
+     ```
+4. Click "Add" to save all valid cards
+5. Invalid lines are skipped and reported
 
 ### Editing/Deleting Cards
 - (Coming soon: UI for editing and deleting individual cards within a deck)
