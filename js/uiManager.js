@@ -37,8 +37,12 @@ export class UIManager {
         // Enable/disable Create button based on deck name input
         const deckNameInput = document.getElementById('deck-name');
         const createDeckSubmit = document.getElementById('create-deck-submit');
+        const deckNameError = document.getElementById('deck-name-error');
         deckNameInput.addEventListener('input', () => {
             createDeckSubmit.disabled = deckNameInput.value.trim() === '';
+            if (deckNameInput.value.trim() !== '') {
+                deckNameError.style.display = 'none';
+            }
         });
     }
 
@@ -111,7 +115,13 @@ export class UIManager {
         e.preventDefault();
         const name = document.getElementById('deck-name').value;
         const description = document.getElementById('deck-description').value;
-
+        const deckNameError = document.getElementById('deck-name-error');
+        if (name.trim() === '') {
+            deckNameError.style.display = 'block';
+            return;
+        } else {
+            deckNameError.style.display = 'none';
+        }
         this.deckManager.createDeck(name, description);
         this.hideDeckModal();
         this.renderDecks();
