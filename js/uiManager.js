@@ -93,9 +93,9 @@ export class UIManager {
                     <span>${this.studyManager.getDueCardsCount(deck.id)} due</span>
                 </div>
                 <div class="deck-actions">
-                    <button class="btn" onclick="event.stopPropagation(); this.startStudySession('${deck.id}')">Study</button>
-                    <button class="btn" onclick="event.stopPropagation(); this.editDeck('${deck.id}')">Edit</button>
-                    <button class="btn" onclick="event.stopPropagation(); this.deleteDeck('${deck.id}')">Delete</button>
+                    <button class="btn study-btn" data-deck-id="${deck.id}">Study</button>
+                    <button class="btn edit-btn" data-deck-id="${deck.id}">Edit</button>
+                    <button class="btn delete-btn" data-deck-id="${deck.id}">Delete</button>
                 </div>
             </div>
         `).join('');
@@ -105,6 +105,29 @@ export class UIManager {
             card.addEventListener('click', () => {
                 const deckId = card.dataset.deckId;
                 this.showDeckDetails(deckId);
+            });
+        });
+
+        // Add event listeners for action buttons
+        // Study
+        Array.from(document.querySelectorAll('.study-btn')).forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                this.startStudySession(btn.dataset.deckId);
+            });
+        });
+        // Edit
+        Array.from(document.querySelectorAll('.edit-btn')).forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                this.editDeck(btn.dataset.deckId);
+            });
+        });
+        // Delete
+        Array.from(document.querySelectorAll('.delete-btn')).forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                this.deleteDeck(btn.dataset.deckId);
             });
         });
     }
