@@ -78,6 +78,12 @@ export class UIManager {
         this._originalCardFormSubmitHandler = (e) => this.handleCardSubmit(e); // Store bound reference
         cardForm.addEventListener('submit', this._originalCardFormSubmitHandler);
         cardForm.setAttribute('data-submit-handler-is-add', 'true');
+
+        // Event listener for "Study All Due" button
+        const studyAllDueBtn = document.getElementById('study-all-due-btn');
+        if (studyAllDueBtn) {
+            studyAllDueBtn.addEventListener('click', () => this.handleStudyAllDue());
+        }
     }
 
     setupTabNavigation() {
@@ -110,6 +116,8 @@ export class UIManager {
     renderDecks() {
         const decksList = document.getElementById('decks-list');
         const decks = this.deckManager.getAllDecks();
+        
+        this.renderQuickAccessStats(decks); // Call to render stats
         
         decksList.innerHTML = decks.map(deck => `
             <div class="deck-card-revamped" data-deck-id="${deck.id}">
@@ -182,6 +190,42 @@ export class UIManager {
                 this.showCardModal(btn.dataset.deckId);
             });
         });
+    }
+
+    renderQuickAccessStats(decks) {
+        const totalDecksStat = document.getElementById('total-decks-stat');
+        const totalDueStat = document.getElementById('total-due-stat');
+        const studyAllDueBtn = document.getElementById('study-all-due-btn');
+
+        if (totalDecksStat) {
+            totalDecksStat.textContent = decks.length;
+        }
+
+        const allDueCards = this.deckManager.getAllDueCards();
+        if (totalDueStat) {
+            totalDueStat.textContent = allDueCards.length;
+        }
+
+        if (studyAllDueBtn) {
+            studyAllDueBtn.disabled = allDueCards.length === 0;
+            // Update button text or style if needed based on count
+            studyAllDueBtn.querySelector('.icon + span').textContent = `Study All Due (${allDueCards.length})`;
+        }
+    }
+
+    handleStudyAllDue() {
+        const allDueCards = this.deckManager.getAllDueCards();
+        if (allDueCards.length === 0) {
+            this.showToast('No cards are due right now!', 'info');
+            return;
+        }
+        // For Option 2 (Better but more complex for StudyManager):
+        // This requires StudyManager to handle a list of cards not tied to a single currentDeckId
+        // or to virtually create a temporary deck.
+        // console.log('Starting study session for all due cards:', allDueCards);
+        const firstCard = this.studyManager.startStudySessionWithCards(allDueCards); 
+        this.switchTab('study'); 
+        this.updateStudyUI(firstCard); // Explicitly update UI with the first card from the new session
     }
 
     showDeckModal() {

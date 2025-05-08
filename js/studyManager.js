@@ -26,6 +26,26 @@ export class StudyManager {
         return this.getCurrentCard();
     }
 
+    startStudySessionWithCards(cardsToStudy) {
+        this.currentDeckId = null; // No single current deck for this type of session
+        this.currentCardIndex = 0;
+        this.isFlipped = false;
+        
+        // Shuffle the provided cards
+        this.studyCards = this.shuffleArray(cardsToStudy);
+
+        // If UIManager.updateStudyUI is to be called, it needs the first card.
+        // This method needs to be called from UIManager after switching tab.
+        // For now, the UIManager will handle calling updateStudyUI with the first card.
+        // We also need to ensure that rateCard can work without a currentDeckId, 
+        // using the deckId stored on the card itself.
+        const firstCard = this.getCurrentCard();
+        if (firstCard) {
+            this.currentDeckId = firstCard.deckId; // Set currentDeckId for the first card
+        }
+        return firstCard;
+    }
+
     getCurrentCard() {
         if (!this.studyCards.length) return null;
         return this.studyCards[this.currentCardIndex];
@@ -35,8 +55,13 @@ export class StudyManager {
         if (this.currentCardIndex < this.studyCards.length - 1) {
             this.currentCardIndex++;
             this.isFlipped = false;
-            return this.getCurrentCard();
+            const nextCardToStudy = this.getCurrentCard();
+            if (nextCardToStudy) {
+                this.currentDeckId = nextCardToStudy.deckId; // Update deckId for the next card
+            }
+            return nextCardToStudy;
         }
+        this.currentDeckId = null; // Clear deckId if no more cards
         return null;
     }
 
@@ -44,8 +69,13 @@ export class StudyManager {
         if (this.currentCardIndex > 0) {
             this.currentCardIndex--;
             this.isFlipped = false;
-            return this.getCurrentCard();
+            const prevCardToStudy = this.getCurrentCard();
+            if (prevCardToStudy) {
+                this.currentDeckId = prevCardToStudy.deckId; // Update deckId for the previous card
+            }
+            return prevCardToStudy;
         }
+        this.currentDeckId = null; // Clear deckId if at the beginning
         return null;
     }
 
@@ -58,8 +88,15 @@ export class StudyManager {
         const currentCard = this.getCurrentCard();
         if (!currentCard) return null;
 
-        // Update card progress using SM-2 algorithm
-        this.deckManager.updateCardProgress(this.currentDeckId, currentCard.id, quality);
+        // Use currentCard.deckId as it was added in deckManager.getAllDueCards()
+        // OR this.currentDeckId which should be set by nextCard/prevCard/startStudySessionWithCards
+        const deckIdToUpdate = currentCard.deckId || this.currentDeckId;
+        if (!deckIdToUpdate) {
+            console.error("Deck ID missing for card rating in aggregated session.");
+            return this.nextCard(); // Skip rating if deckId is missing
+        }
+
+        this.deckManager.updateCardProgress(deckIdToUpdate, currentCard.id, quality);
         
         // Move to next card
         return this.nextCard();

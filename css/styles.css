@@ -158,6 +158,42 @@ body {
     color: var(--text-primary);
 }
 
+/* Deck Quick Access Area */
+.deck-quick-access-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Pushes button to the right if stats are grouped */
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.quick-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 var(--spacing-lg);
+}
+
+.quick-stat .stat-value {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.quick-stat .stat-label {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+#study-all-due-btn {
+    margin-left: auto; /* Pushes button to the far right */
+}
+
 /* Deck Grid */
 .decks-grid {
     display: grid;

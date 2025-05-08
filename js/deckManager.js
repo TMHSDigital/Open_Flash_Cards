@@ -93,6 +93,17 @@ export class DeckManager {
         return deck.cards.filter(card => new Date(card.nextReview) <= now);
     }
 
+    getAllDueCards() {
+        const allDue = [];
+        const now = new Date();
+        for (const deck of this.decks.values()) {
+            const dueInDeck = deck.cards.filter(card => new Date(card.nextReview) <= now);
+            // Add deckId to each card for context if studying across decks
+            dueInDeck.forEach(card => allDue.push({ ...card, deckId: deck.id })); 
+        }
+        return allDue;
+    }
+
     // Spaced repetition algorithm (SM-2)
     updateCardProgress(deckId, cardId, quality) {
         const card = this.getDeck(deckId)?.cards.find(c => c.id === cardId);
