@@ -111,7 +111,10 @@ npx serve
 
 ### Editing/Deleting Cards
 
-- (Coming soon: UI for editing and deleting individual cards within a deck)
+- To manage individual cards (edit or delete), first click on a deck from the "My Decks" list to open the Deck Details view.
+- In the Deck Details view, each card will have an "Edit" and a "Delete" button.
+- **Edit Card**: Click "Edit" to open a modal pre-filled with the card's content (front, back, image URL). Modify as needed and save.
+- **Delete Card**: Click "Delete" and confirm to remove the card permanently from the deck.
 
 ### Studying
 

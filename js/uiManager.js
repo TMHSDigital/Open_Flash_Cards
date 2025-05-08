@@ -534,6 +534,35 @@ export class UIManager {
         setTimeout(() => {
             document.getElementById('card-front').focus();
         }, 0);
+
+        this._currentEditCardSubmitHandler = async (e) => {
+            e.preventDefault();
+            const updatedFront = document.getElementById('card-front').value;
+            const updatedBack = document.getElementById('card-back').value;
+            const updatedImageUrl = document.getElementById('card-image').value;
+
+            try {
+                const result = await this.deckManager.updateCard(deckId, cardId, {
+                    front: updatedFront,
+                    back: updatedBack,
+                    imageUrl: updatedImageUrl
+                });
+                if (result) {
+                    this.showToast('Card updated successfully!', 'success');
+                } else {
+                    // This case might occur if updateCard returns null/false on non-exceptional failure
+                    this.showToast('Failed to update card. Card not found or no changes made.', 'error');
+                }
+            } catch (error) {
+                console.error('Error updating card:', error);
+                this.showToast(`Error updating card: ${error.message}`, 'error');
+            }
+            
+            this.hideCardModal(); 
+            this.renderDecks();
+        };
+        const cardForm = document.getElementById('card-form');
+        cardForm.addEventListener('submit', this._currentEditCardSubmitHandler);
     }
 
     showTemplate() {
