@@ -112,34 +112,43 @@ export class UIManager {
         const decks = this.deckManager.getAllDecks();
         
         decksList.innerHTML = decks.map(deck => `
-            <div class="deck-card" data-deck-id="${deck.id}">
-                <h3>${deck.name}</h3>
-                <p>${deck.description || ''}</p>
-                <div class="deck-stats">
-                    <span>${deck.cards.length} cards</span>
-                    <span>${this.studyManager.getDueCardsCount(deck.id)} due</span>
+            <div class="deck-card-revamped" data-deck-id="${deck.id}">
+                <div class="deck-card-main-info">
+                    <h3 class="deck-card-title">${deck.name}</h3>
+                    <p class="deck-card-description">${deck.description || 'No description'}</p>
                 </div>
-                <div class="deck-actions">
-                    <button class="btn study-btn" data-deck-id="${deck.id}">
-                        <svg viewBox="0 0 24 24" class="icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"></path></svg> Study
-                    </button>
-                    <button class="btn add-card-btn" data-deck-id="${deck.id}">
-                        <svg viewBox="0 0 24 24" class="icon"><path d="M14 10H3v2h11v-2zm0-4H3v2h11V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM3 16h7v-2H3v2z"></path></svg> Add Card
-                    </button>
-                    <button class="btn edit-btn" data-deck-id="${deck.id}">
-                        <svg viewBox="0 0 24 24" class="icon"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg> Edit
-                    </button>
-                    <button class="btn delete-btn" data-deck-id="${deck.id}">
-                        <svg viewBox="0 0 24 24" class="icon"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg> Delete
-                    </button>
+                <div class="deck-card-stats-actions">
+                    <div class="deck-card-stats">
+                        <span class="stat-total-cards">${deck.cards.length} Card${deck.cards.length === 1 ? '' : 's'}</span>
+                        <span class="stat-due-cards">${this.studyManager.getDueCardsCount(deck.id)} Due</span>
+                    </div>
+                    <div class="deck-card-actions">
+                        <button class="btn study-btn" data-deck-id="${deck.id}">
+                            <svg viewBox="0 0 24 24" class="icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"></path></svg> Study
+                        </button>
+                        <button class="btn add-card-btn" data-deck-id="${deck.id}">
+                            <svg viewBox="0 0 24 24" class="icon"><path d="M14 10H3v2h11v-2zm0-4H3v2h11V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM3 16h7v-2H3v2z"></path></svg> Add Card
+                        </button>
+                        <button class="btn edit-btn" data-deck-id="${deck.id}">
+                            <svg viewBox="0 0 24 24" class="icon"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg> Edit
+                        </button>
+                        <button class="btn delete-btn" data-deck-id="${deck.id}">
+                            <svg viewBox="0 0 24 24" class="icon"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg> Delete
+                        </button>
+                    </div>
                 </div>
             </div>
         `).join('');
 
-        // Add click handlers for deck cards
-        document.querySelectorAll('.deck-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const deckId = card.dataset.deckId;
+        // Add click handlers for deck cards (now .deck-card-revamped)
+        document.querySelectorAll('.deck-card-revamped').forEach(cardElement => {
+            cardElement.addEventListener('click', (e) => {
+                // Only trigger showDeckDetails if the click is on the card itself,
+                // not on a button inside .deck-card-actions
+                if (e.target.closest('.deck-card-actions')) {
+                    return;
+                }
+                const deckId = cardElement.dataset.deckId;
                 this.showDeckDetails(deckId);
             });
         });

@@ -142,21 +142,31 @@ body {
     display: block;
 }
 
-/* Deck Grid */
-.decks-header {
+/* Content View Header (replaces .decks-header) */
+.content-view-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-primary);
 }
 
+.view-title {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Deck Grid */
 .decks-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--spacing-lg);
 }
 
-.deck-card {
+/* Old .deck-card styles - to be replaced by .deck-card-revamped */
+/*.deck-card {
     background: var(--color-white);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
@@ -189,6 +199,90 @@ body {
     display: flex;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
+}*/
+
+/* New Revamped Deck Card Styles */
+.deck-card-revamped {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes stats/actions to bottom */
+    transition: all var(--transition-default);
+    box-shadow: var(--shadow-md);
+    min-height: 220px; /* Ensure a decent minimum height */
+}
+
+.deck-card-revamped:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--card-hover-border);
+}
+
+.deck-card-main-info {
+    margin-bottom: var(--spacing-md);
+}
+
+.deck-card-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.deck-card-description {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.4;
+    /* Potentially limit lines with text-overflow if desired */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show up to 3 lines */
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: calc(var(--text-sm) * 1.4 * 1); /* Min height for 1 line to prevent collapse */
+}
+
+.deck-card-stats-actions {
+    margin-top: auto; /* Pushes this block to the bottom if card grows */
+}
+
+.deck-card-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-secondary);
+}
+
+.deck-card-stats .stat-due-cards {
+    font-weight: 600;
+    color: var(--color-accent); /* Make due cards stand out */
+}
+
+.deck-card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2x2 grid for buttons */
+    gap: var(--spacing-sm);
+}
+
+.deck-card-actions .btn {
+    padding: var(--spacing-sm) var(--spacing-xs); /* Adjust padding if needed */
+    font-size: var(--text-xs); /* Slightly smaller text for buttons */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deck-card-actions .btn .icon {
+    margin-right: var(--spacing-xs); /* Ensure consistent icon spacing */
 }
 
 /* Study Area */
