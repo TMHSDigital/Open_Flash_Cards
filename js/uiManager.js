@@ -226,7 +226,23 @@ export class UIManager {
 
     showCardModal(deckId) {
         this.currentDeckId = deckId;
-        document.getElementById('card-modal').classList.add('active');
+        const modal = document.getElementById('card-modal');
+        modal.classList.add('active');
+
+        // Add listeners for Esc key, focus trap, and click outside
+        this._현재CardModalKeydown = (e) => this._handleModalKeydown(e, 'card-modal', () => this.hideCardModal());
+        this._현재CardModalClickOutside = (e) => this._handleModalClickOutside(e, 'card-modal', () => this.hideCardModal());
+        document.addEventListener('keydown', this._현재CardModalKeydown);
+        modal.addEventListener('click', this._현재CardModalClickOutside);
+        
+        setTimeout(() => {
+             // Focus the first relevant input
+            if (document.getElementById('single-add-section').style.display !== 'none') {
+                document.getElementById('card-front').focus();
+            } else {
+                document.getElementById('bulk-cards').focus();
+            }
+        }, 0);
     }
 
     hideCardModal() {
@@ -247,6 +263,16 @@ export class UIManager {
         if (!cardForm.getAttribute('data-submit-handler-is-add')) {
             cardForm.addEventListener('submit', this._originalCardFormSubmitHandler);
             cardForm.setAttribute('data-submit-handler-is-add', 'true');
+        }
+
+        // Remove listeners
+        if (this._현재CardModalKeydown) {
+            document.removeEventListener('keydown', this._현재CardModalKeydown);
+            this._현재CardModalKeydown = null;
+        }
+        if (this._현재CardModalClickOutside) {
+            cardModal.removeEventListener('click', this._현재CardModalClickOutside);
+            this._현재CardModalClickOutside = null;
         }
     }
 
@@ -305,13 +331,19 @@ export class UIManager {
         const cardFront = document.querySelector('.card-front');
         const cardBack = document.querySelector('.card-back');
         const progress = this.studyManager.getProgress();
+        const ratingControls = document.querySelector('.rating-controls');
 
         if (card) {
             cardFront.innerHTML = this.formatCardContent(card.front, card.imageUrl);
             cardBack.innerHTML = this.formatCardContent(card.back);
+            document.querySelector('.card').classList.remove('flipped'); // Ensure card is not flipped initially
+            ratingControls.style.display = 'none'; // Hide ratings for new card
+            document.getElementById('flip-card').style.display = 'inline-block'; // Show flip button
         } else {
             cardFront.innerHTML = 'No cards to study';
             cardBack.innerHTML = '';
+            ratingControls.style.display = 'none';
+            document.getElementById('flip-card').style.display = 'none'; // Hide flip if no card
         }
 
         document.getElementById('cards-remaining').textContent = 
@@ -331,6 +363,14 @@ export class UIManager {
     handleCardFlip() {
         const isFlipped = this.studyManager.flipCard();
         document.querySelector('.card').classList.toggle('flipped', isFlipped);
+        const ratingControls = document.querySelector('.rating-controls');
+        if (isFlipped) {
+            ratingControls.style.display = 'flex'; // Show rating buttons
+            document.getElementById('flip-card').style.display = 'none'; // Hide flip button
+        } else {
+            ratingControls.style.display = 'none'; // Hide rating buttons if flipping back
+            document.getElementById('flip-card').style.display = 'inline-block'; // Show flip button
+        }
     }
 
     handleNextCard() {
@@ -401,7 +441,7 @@ export class UIManager {
                         </div>
                         <div class="card-actions">
                             <button class="btn edit-card-btn" data-deck-id="${deckId}" data-card-id="${card.id}">Edit</button>
-                            {/* Delete button will be added in a later step */}
+                            <button class="btn delete-card-btn" data-deck-id="${deckId}" data-card-id="${card.id}">Delete</button>
                         </div>
                     </li>
                 `;
@@ -435,12 +475,26 @@ export class UIManager {
         modal.querySelectorAll('.edit-card-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const cardId = e.currentTarget.dataset.cardId;
-                // console.log(\`Edit card: \${cardId} from deck: \${deckId}\`);
                 this.showEditCardModal(deckId, cardId);
                 modal.remove(); // Close details modal when opening edit modal
             });
         });
-         // Add Esc key listener for closing
+
+        // Event listeners for delete card buttons
+        modal.querySelectorAll('.delete-card-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const cardId = e.currentTarget.dataset.cardId;
+                if (confirm('Are you sure you want to delete this card?')) {
+                    this.deckManager.deleteCard(deckId, cardId);
+                    this.renderDecks(); // Update card counts on main deck list
+                    // Refresh the current modal view by re-showing details
+                    // This is a simple way to update the list in the modal
+                    this.showDeckDetails(deckId);
+                }
+            });
+        });
+        
+        // Add Esc key listener for closing
         this._currentDeckDetailsModalKeydown = (e) => {
             if (e.key === 'Escape') {
                 modal.remove();
@@ -467,76 +521,67 @@ export class UIManager {
             return;
         }
 
-        // For now, let's reuse the existing card modal.
-        // We'll need to populate it and change its submit behavior.
         const cardModal = document.getElementById('card-modal');
-        const cardForm = document.getElementById('card-form');
-        const modalTitle = cardModal.querySelector('h3');
+        this.currentDeckId = deckId; // Set currentDeckId for the modal context
+        cardModal.classList.add('active');
+
+        // Add listeners for Esc key, focus trap, and click outside
+        this._현재CardModalKeydown = (e) => this._handleModalKeydown(e, 'card-modal', () => this.hideCardModal());
+        this._현재CardModalClickOutside = (e) => this._handleModalClickOutside(e, 'card-modal', () => this.hideCardModal());
+        document.addEventListener('keydown', this._현재CardModalKeydown);
+        cardModal.addEventListener('click', this._현재CardModalClickOutside);
         
-        // Hide bulk add, show single add
-        document.getElementById('single-add-toggle').click(); // Ensure single add is active
-        document.getElementById('bulk-add-section').style.display = 'none';
-        document.getElementById('single-add-section').style.display = '';
-        document.getElementById('toggle-group').style.display = 'none'; // Hide single/bulk toggle
-
-        modalTitle.textContent = 'Edit Card';
-        document.getElementById('card-front').value = card.front;
-        document.getElementById('card-back').value = card.back;
-        document.getElementById('card-image').value = card.imageUrl || '';
-
-        // Change form submission to update
-        cardForm.removeEventListener('submit', this._originalCardFormSubmitHandler);
-        cardForm.removeAttribute('data-submit-handler-is-add');
-
-        this._currentEditCardSubmitHandler = (e) => {
-            e.preventDefault();
-            const updatedFront = document.getElementById('card-front').value;
-            const updatedBack = document.getElementById('card-back').value;
-            const updatedImageUrl = document.getElementById('card-image').value;
-
-            this.deckManager.updateCard(deckId, cardId, {
-                front: updatedFront,
-                back: updatedBack,
-                imageUrl: updatedImageUrl
-            });
-            
-            this.hideCardModal(); 
-            this.renderDecks();
-        };
-        cardForm.addEventListener('submit', this._currentEditCardSubmitHandler);
-        
-        // ... (rest of modal showing logic) ...
+        setTimeout(() => {
+            document.getElementById('card-front').focus();
+        }, 0);
     }
 
     showTemplate() {
         fetch('docs/bulk_import_template.txt')
             .then(response => response.text())
             .then(template => {
+                const modalId = 'template-display-modal';
+                // Remove existing modal if any to prevent duplicates
+                let existingModal = document.getElementById(modalId);
+                if (existingModal) existingModal.remove();
+
                 const modal = document.createElement('div');
+                modal.id = modalId;
                 modal.className = 'modal active';
+                // Add a specific class for content to help with focus trap exclusion if needed
                 modal.innerHTML = `
-                    <div class="modal-content" style="max-width: 600px;">
+                    <div class="modal-content modal-template-content" style="max-width: 600px;">
                         <button type="button" class="modal-close" aria-label="Close">&times;</button>
                         <h3>Bulk Import Template</h3>
                         <pre style="background: var(--color-light-gray); padding: 1rem; border-radius: 4px; overflow-x: auto;">${template}</pre>
                         <div class="modal-actions">
-                            <button class="btn" onclick="this.closest('.modal').remove()">Close</button>
-                            <button class="btn primary" onclick="this.downloadTemplate()">Download Template</button>
+                            <button type="button" class="btn close-template-btn">Close</button>
+                            <button type="button" class="btn primary download-template-btn">Download Template</button>
                         </div>
                     </div>
                 `;
                 document.body.appendChild(modal);
 
+                const closeFn = () => {
+                    modal.remove();
+                    if (this._현재TemplateModalKeydown) {
+                         document.removeEventListener('keydown', this._현재TemplateModalKeydown);
+                         this._현재TemplateModalKeydown = null;
+                    }
+                    // Click outside listener is on `modal` itself, so it's removed with `modal.remove()`
+                };
+
                 // Add close button handler
-                modal.querySelector('.modal-close').addEventListener('click', () => modal.remove());
+                modal.querySelector('.modal-close').addEventListener('click', closeFn);
+                modal.querySelector('.close-template-btn').addEventListener('click', closeFn);
                 
-                // Add click outside to close
+                // Add click outside to close (already on `modal` but specific to its content)
                 modal.addEventListener('click', (e) => {
-                    if (e.target === modal) modal.remove();
+                     if (e.target === modal) closeFn(); // Only if click is on backdrop
                 });
 
                 // Add download handler
-                window.downloadTemplate = () => {
+                modal.querySelector('.download-template-btn').addEventListener('click', () => {
                     const blob = new Blob([template], { type: 'text/plain' });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
@@ -546,7 +591,16 @@ export class UIManager {
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
-                };
+                });
+
+                // Add Esc key listener for closing and focus trap
+                this._현재TemplateModalKeydown = (e) => this._handleModalKeydown(e, modalId, closeFn);
+                document.addEventListener('keydown', this._현재TemplateModalKeydown);
+
+                // Focus the close button initially
+                setTimeout(() => {
+                    modal.querySelector('.close-template-btn').focus();
+                }, 0);
             })
             .catch(error => {
                 console.error('Error loading template:', error);
@@ -556,5 +610,42 @@ export class UIManager {
 
     refreshDeckView() {
         this.renderDecks();
+    }
+
+    // Generic modal keydown handler (Esc and Tab focus trap)
+    _handleModalKeydown = (e, modalId, closeFn) => {
+        const modal = document.getElementById(modalId);
+        if (!modal || !modal.classList.contains('active')) return;
+
+        if (e.key === 'Escape') {
+            closeFn();
+            return;
+        }
+        if (e.key === 'Tab') {
+            const focusable = modal.querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])');
+            const focusableEls = Array.from(focusable).filter(el => !el.disabled && el.offsetParent !== null && !el.closest('.modal-template-content')); // Exclude template modal content if nested
+            if (focusableEls.length === 0) return;
+            const first = focusableEls[0];
+            const last = focusableEls[focusableEls.length - 1];
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    last.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === last || !focusableEls.includes(document.activeElement)) {
+                    first.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+    }
+
+    // Generic modal click outside handler
+    _handleModalClickOutside = (e, modalId, closeFn) => {
+        const modal = document.getElementById(modalId);
+        if (e.target === modal) { // Check if the click is on the modal backdrop itself
+            closeFn();
+        }
     }
 } 

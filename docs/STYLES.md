@@ -79,33 +79,33 @@
 
 #### Primary Button
 ```css
-.btn-primary {
-    background-color: var(--color-primary);
-    color: white;
-    padding: 0.5rem 1rem;
+.btn.primary {
+    background-color: var(--btn-primary-bg); /* Themed */
+    color: var(--btn-text); /* Themed */
+    padding: 0.5rem 1rem; /* Or use spacing vars like var(--spacing-sm) var(--spacing-md) */
     border-radius: var(--radius-md);
     font-weight: 500;
     transition: background-color var(--transition-default);
 }
 
-.btn-primary:hover {
-    background-color: var(--color-primary-dark);
+.btn.primary:hover {
+    background-color: var(--btn-primary-hover); /* Themed */
 }
 ```
 
 #### Secondary Button
 ```css
-.btn-secondary {
-    background-color: var(--color-light-gray);
-    color: var(--color-text);
-    padding: 0.5rem 1rem;
+.btn:not(.primary) { /* Matches themes.css for secondary styling */
+    background-color: var(--btn-secondary-bg); /* Themed */
+    color: var(--btn-secondary-text); /* Themed */
+    padding: 0.5rem 1rem; /* Or use spacing vars */
     border-radius: var(--radius-md);
     font-weight: 500;
     transition: background-color var(--transition-default);
 }
 
-.btn-secondary:hover {
-    background-color: var(--color-medium-gray);
+.btn:not(.primary):hover {
+    background-color: var(--btn-secondary-hover); /* Themed */
 }
 ```
 
@@ -200,16 +200,27 @@
 
 ## Dark Mode
 
-### Dark Theme Colors
-- Background: `#111827`
-- Card Background: `#1f2937`
-- Text: `#f3f4f6`
-- Border: `#374151`
-- Hover: `#374151`
+### Dark Theme Colors (aligns with themes.css)
+- Background Primary: `#1a1b1e` (var(--bg-primary))
+- Background Secondary: `#2c2e33` (var(--bg-secondary))
+- Card Background: `#2c2e33` (var(--card-bg))
+- Text Primary: `#e9ecef` (var(--text-primary))
+- Text Secondary: `#adb5bd` (var(--text-secondary))
+- Border Primary: `#373a40` (var(--border-primary))
 
 ## Accessibility
 
 ### Focus States
+Input fields, textareas, and select elements currently use a `box-shadow` on `:focus` for visibility:
+```css
+/* Example for input fields from styles.css */
+input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1); /* This shadow is themed via --input-focus-shadow */
+}
+```
+Consideration for future enhancement could be to adopt `:focus-visible` more broadly for keyboard-only focus indication if desired, which might look like:
 ```css
 :focus-visible {
     outline: 2px solid var(--color-primary);

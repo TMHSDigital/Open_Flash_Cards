@@ -512,4 +512,54 @@ select:focus {
     margin-bottom: var(--spacing-xs);
     min-height: 1.2em;
     transition: opacity var(--transition-default);
+}
+
+/* Deck Details Modal Specifics */
+.deck-details-modal .modal-content {
+    max-width: 700px; /* Wider for card list */
+}
+
+.deck-details-card-list {
+    list-style-type: none;
+    padding: 0;
+    margin: var(--spacing-md) 0;
+    max-height: 60vh; /* Allow scrolling for long lists */
+    overflow-y: auto;
+}
+
+.deck-details-card-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+    background-color: var(--bg-primary);
+}
+
+.deck-details-card-list li .card-info p {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: var(--text-sm);
+}
+
+.deck-details-card-list li .card-info p strong {
+    font-weight: 500;
+}
+
+.deck-details-card-list li .card-actions .btn {
+    padding: var(--spacing-xs) var(--spacing-sm); /* Slightly smaller buttons in list */
+}
+
+/* Rating Controls for Study Area */
+.rating-controls {
+    display: none; /* Initially hidden */
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.rating-controls .btn {
+    flex-grow: 1; /* Make buttons share space */
+    max-width: 150px; /* Prevent them from becoming too wide */
 } 
