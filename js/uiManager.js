@@ -151,12 +151,15 @@ export class UIManager {
         // Add click handlers for deck cards (now .deck-card-revamped)
         document.querySelectorAll('.deck-card-revamped').forEach(cardElement => {
             cardElement.addEventListener('click', (e) => {
+                console.log('[DEBUG] Deck card clicked. Target:', e.target);
                 // Only trigger showDeckDetails if the click is on the card itself,
                 // not on a button inside .deck-card-actions
                 if (e.target.closest('.deck-card-actions')) {
+                    console.log('[DEBUG] Click detected within actions area, ignoring for showDeckDetails.');
                     return;
                 }
                 const deckId = cardElement.dataset.deckId;
+                console.log(`[DEBUG] Attempting to show details for deckId: ${deckId}`);
                 this.showDeckDetails(deckId);
             });
         });
@@ -214,6 +217,7 @@ export class UIManager {
     }
 
     handleStudyAllDue() {
+        console.log('[DEBUG] handleStudyAllDue called.');
         const allDueCards = this.deckManager.getAllDueCards();
         if (allDueCards.length === 0) {
             this.showToast('No cards are due right now!', 'info');
@@ -478,8 +482,12 @@ export class UIManager {
     }
 
     showDeckDetails(deckId) {
+        console.log(`[DEBUG] showDeckDetails called for deckId: ${deckId}`);
         const deck = this.deckManager.getDeck(deckId);
-        if (!deck) return;
+        if (!deck) {
+            console.error(`[DEBUG] Deck not found for id: ${deckId}`);
+            return;
+        }
 
         // Create modal structure
         const modalId = 'deck-details-modal';
