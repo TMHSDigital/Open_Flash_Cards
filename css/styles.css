@@ -652,4 +652,31 @@ select:focus {
         opacity: 0;
         transform: translateY(-20px); /* Optional: move up slightly on fade out */
     }
+}
+
+/* Bulk Import Template Preview Area */
+.bulk-import-preview {
+    background-color: var(--bg-secondary); /* Use a themed background */
+    color: var(--text-primary);          /* Use themed text color */
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    border: 1px solid var(--border-primary); /* Add a subtle border */
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+}
+
+/* Bulk Add Helper Text */
+#bulk-add-helper {
+    font-size: 0.9em;
+    color: var(--text-secondary); /* Use themed secondary text color */
+    margin-bottom: var(--spacing-sm);
+}
+
+#bulk-add-helper code {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: 0.1em 0.4em;
+    border-radius: var(--radius-sm);
+    font-size: 0.95em;
 } 

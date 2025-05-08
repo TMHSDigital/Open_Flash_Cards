@@ -582,7 +582,7 @@ export class UIManager {
                     <div class="modal-content modal-template-content" style="max-width: 600px;">
                         <button type="button" class="modal-close" aria-label="Close">&times;</button>
                         <h3>Bulk Import Template</h3>
-                        <pre style="background: var(--color-light-gray); padding: 1rem; border-radius: 4px; overflow-x: auto;">${template}</pre>
+                        <pre class="bulk-import-preview">${template}</pre>
                         <div class="modal-actions">
                             <button type="button" class="btn close-template-btn">Close</button>
                             <button type="button" class="btn primary download-template-btn">Download Template</button>
