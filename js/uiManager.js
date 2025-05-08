@@ -120,10 +120,18 @@ export class UIManager {
                     <span>${this.studyManager.getDueCardsCount(deck.id)} due</span>
                 </div>
                 <div class="deck-actions">
-                    <button class="btn study-btn" data-deck-id="${deck.id}">Study</button>
-                    <button class="btn add-card-btn" data-deck-id="${deck.id}">Add Card</button>
-                    <button class="btn edit-btn" data-deck-id="${deck.id}">Edit</button>
-                    <button class="btn delete-btn" data-deck-id="${deck.id}">Delete</button>
+                    <button class="btn study-btn" data-deck-id="${deck.id}">
+                        <svg viewBox="0 0 24 24" class="icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"></path></svg> Study
+                    </button>
+                    <button class="btn add-card-btn" data-deck-id="${deck.id}">
+                        <svg viewBox="0 0 24 24" class="icon"><path d="M14 10H3v2h11v-2zm0-4H3v2h11V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM3 16h7v-2H3v2z"></path></svg> Add Card
+                    </button>
+                    <button class="btn edit-btn" data-deck-id="${deck.id}">
+                        <svg viewBox="0 0 24 24" class="icon"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg> Edit
+                    </button>
+                    <button class="btn delete-btn" data-deck-id="${deck.id}">
+                        <svg viewBox="0 0 24 24" class="icon"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg> Delete
+                    </button>
                 </div>
             </div>
         `).join('');
@@ -440,8 +448,12 @@ export class UIManager {
                             <p><strong>Back:</strong> ${this.truncateText(card.back, 50)}</p>
                         </div>
                         <div class="card-actions">
-                            <button class="btn edit-card-btn" data-deck-id="${deckId}" data-card-id="${card.id}">Edit</button>
-                            <button class="btn delete-card-btn" data-deck-id="${deckId}" data-card-id="${card.id}">Delete</button>
+                            <button class="btn edit-card-btn" data-deck-id="${deckId}" data-card-id="${card.id}">
+                                <svg viewBox="0 0 24 24" class="icon"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg> Edit
+                            </button>
+                            <button class="btn delete-card-btn" data-deck-id="${deckId}" data-card-id="${card.id}">
+                                <svg viewBox="0 0 24 24" class="icon"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg> Delete
+                            </button>
                         </div>
                     </li>
                 `;
