@@ -37,6 +37,9 @@
     --btn-secondary-hover: var(--color-medium-gray);
     --btn-text: var(--color-white);
     --btn-secondary-text: var(--color-black);
+
+    /* Shadow RGB value - for themeable shadows */
+    --shadow-rgb: 0, 0, 0; /* Default to black for light theme shadows */
 }
 
 /* Dark Theme */
@@ -78,6 +81,9 @@
     --btn-secondary-hover: #40434a;
     --btn-text: var(--color-white);
     --btn-secondary-text: var(--color-white);
+
+    /* Shadow RGB value - for themeable shadows */
+    --shadow-rgb: 255, 255, 255; /* Default to white (or a light gray) for dark theme shadows */
 }
 
 /* Apply Theme Variables */

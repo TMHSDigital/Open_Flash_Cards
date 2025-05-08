@@ -43,9 +43,10 @@
     --radius-full: 9999px;
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    /* Use --shadow-rgb defined in themes.css for themeable shadow colors */
+    --shadow-sm: 0 1px 2px 0 rgba(var(--shadow-rgb), 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(var(--shadow-rgb), 0.1), 0 2px 4px -2px rgba(var(--shadow-rgb), 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(var(--shadow-rgb), 0.1), 0 4px 6px -4px rgba(var(--shadow-rgb), 0.1);
 
     /* Transitions */
     --transition-fast: 0.15s ease-in-out;

@@ -35,15 +35,33 @@ class App {
 
         // Import/Export
         document.getElementById('export-data').addEventListener('click', () => {
-            this.storageManager.exportData();
+            try {
+                this.storageManager.exportData();
+                alert('Data exported successfully!'); // Notification
+            } catch (error) {
+                console.error('Export failed:', error);
+                alert(`Export failed: ${error.message}`); // Notification
+            }
         });
 
         document.getElementById('import-trigger').addEventListener('click', () => {
             document.getElementById('import-data').click();
         });
 
-        document.getElementById('import-data').addEventListener('change', (e) => {
-            this.storageManager.importData(e.target.files[0]);
+        document.getElementById('import-data').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                try {
+                    await this.storageManager.importData(file);
+                    alert('Data imported successfully!'); // Notification
+                    this.uiManager.refreshDeckView(); // Refresh deck view
+                } catch (error) {
+                    console.error('Import failed:', error);
+                    alert(`Import failed: ${error.message}`); // Notification
+                }
+                // Reset file input to allow importing the same file again if needed
+                e.target.value = null;
+            }
         });
     }
 
