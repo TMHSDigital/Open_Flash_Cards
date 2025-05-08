@@ -562,4 +562,57 @@ select:focus {
 .rating-controls .btn {
     flex-grow: 1; /* Make buttons share space */
     max-width: 150px; /* Prevent them from becoming too wide */
+}
+
+/* Toast Notifications */
+#toast-container {
+    position: fixed;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    z-index: 2000; /* Above modals */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.toast {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transform: translateX(100%);
+    animation: toast-slide-in 0.5s forwards, toast-fade-out 0.5s 2.5s forwards; /* Slide in, then fade out after 2.5s delay */
+    min-width: 250px;
+    max-width: 350px;
+}
+
+.toast.success {
+    background-color: var(--color-success);
+}
+
+.toast.error {
+    background-color: var(--color-error);
+}
+
+.toast.info {
+    background-color: var(--color-info);
+}
+
+@keyframes toast-slide-in {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes toast-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px); /* Optional: move up slightly on fade out */
+    }
 } 

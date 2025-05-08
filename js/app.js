@@ -37,10 +37,10 @@ class App {
         document.getElementById('export-data').addEventListener('click', () => {
             try {
                 this.storageManager.exportData();
-                alert('Data exported successfully!'); // Notification
+                this.uiManager.showToast('Data exported successfully!', 'success');
             } catch (error) {
                 console.error('Export failed:', error);
-                alert(`Export failed: ${error.message}`); // Notification
+                this.uiManager.showToast(`Export failed: ${error.message}`, 'error');
             }
         });
 
@@ -53,11 +53,11 @@ class App {
             if (file) {
                 try {
                     await this.storageManager.importData(file);
-                    alert('Data imported successfully!'); // Notification
+                    this.uiManager.showToast('Data imported successfully!', 'success');
                     this.uiManager.refreshDeckView(); // Refresh deck view
                 } catch (error) {
                     console.error('Import failed:', error);
-                    alert(`Import failed: ${error.message}`); // Notification
+                    this.uiManager.showToast(`Import failed: ${error.message}`, 'error');
                 }
                 // Reset file input to allow importing the same file again if needed
                 e.target.value = null;

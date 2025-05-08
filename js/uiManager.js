@@ -612,6 +612,29 @@ export class UIManager {
         this.renderDecks();
     }
 
+    showToast(message, type = 'info', duration = 3000) {
+        const container = document.getElementById('toast-container');
+        if (!container) {
+            console.error('Toast container not found!');
+            return;
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+
+        container.appendChild(toast);
+
+        // The CSS animation handles removal, but we can also remove explicitly
+        // This timeout should roughly match the CSS animation total visible time + fade out time
+        setTimeout(() => {
+            // Check if the toast is still in the DOM before trying to remove
+            if (toast.parentElement === container) {
+                container.removeChild(toast);
+            }
+        }, duration);
+    }
+
     // Generic modal keydown handler (Esc and Tab focus trap)
     _handleModalKeydown = (e, modalId, closeFn) => {
         const modal = document.getElementById(modalId);
