@@ -564,6 +564,43 @@ select:focus {
     max-width: 150px; /* Prevent them from becoming too wide */
 }
 
+/* Specific styles for rating buttons */
+.rating-controls .rating-again {
+    background-color: var(--color-error);
+    color: var(--color-white); /* Ensure contrast */
+}
+.rating-controls .rating-again:hover {
+    background-color: var(--color-error); /* Darken or adjust on hover if needed */
+    filter: brightness(0.9);
+}
+
+.rating-controls .rating-hard {
+    background-color: var(--color-warning);
+    color: var(--color-black); /* Warning color is light, needs dark text */
+}
+.rating-controls .rating-hard:hover {
+    background-color: var(--color-warning);
+    filter: brightness(0.9);
+}
+
+.rating-controls .rating-good {
+    background-color: var(--color-info); /* Using info for a neutral/positive */
+    color: var(--color-white);
+}
+.rating-controls .rating-good:hover {
+    background-color: var(--color-info);
+    filter: brightness(0.9);
+}
+
+.rating-controls .rating-easy {
+    background-color: var(--color-success);
+    color: var(--color-white);
+}
+.rating-controls .rating-easy:hover {
+    background-color: var(--color-success);
+    filter: brightness(0.9);
+}
+
 /* Toast Notifications */
 #toast-container {
     position: fixed;
