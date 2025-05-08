@@ -88,23 +88,30 @@ export class UIManager {
 
     setupTabNavigation() {
         const tabs = document.querySelectorAll('.nav-tab');
+        console.log(`[DEBUG] Setting up tab navigation for ${tabs.length} tabs.`);
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const tabId = tab.dataset.tab;
+                console.log(`[DEBUG] Tab clicked: ${tabId}`);
                 this.switchTab(tabId);
             });
         });
     }
 
     switchTab(tabId) {
+        console.log(`[DEBUG] switchTab called for tabId: ${tabId}`);
         // Update active tab
         document.querySelectorAll('.nav-tab').forEach(tab => {
-            tab.classList.toggle('active', tab.dataset.tab === tabId);
+            const isActive = tab.dataset.tab === tabId;
+            tab.classList.toggle('active', isActive);
+            // console.log(`[DEBUG] Tab ${tab.dataset.tab} active: ${isActive}`);
         });
 
         // Update active content
         document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.toggle('active', content.id === `${tabId}-tab`);
+            const isActive = content.id === `${tabId}-tab`;
+            content.classList.toggle('active', isActive);
+            // console.log(`[DEBUG] Content ${content.id} active: ${isActive}`);
         });
 
         // If switching to study tab and a deck is selected, start study session
