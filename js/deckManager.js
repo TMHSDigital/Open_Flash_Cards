@@ -14,11 +14,16 @@ export class DeckManager {
             lastModified: new Date().toISOString()
         };
         this.decks.set(id, deck);
+        dispatchEvent(new CustomEvent('datachanged'));
         return deck;
     }
 
     deleteDeck(id) {
-        return this.decks.delete(id);
+        const deleted = this.decks.delete(id);
+        if (deleted) {
+            dispatchEvent(new CustomEvent('datachanged'));
+        }
+        return deleted;
     }
 
     getDeck(id) {
@@ -49,6 +54,7 @@ export class DeckManager {
 
         deck.cards.push(card);
         deck.lastModified = new Date().toISOString();
+        dispatchEvent(new CustomEvent('datachanged'));
         return card;
     }
 
@@ -62,7 +68,7 @@ export class DeckManager {
         const card = deck.cards[cardIndex];
         Object.assign(card, updates, { lastModified: new Date().toISOString() });
         deck.lastModified = new Date().toISOString();
-
+        dispatchEvent(new CustomEvent('datachanged'));
         return card;
     }
 
@@ -73,8 +79,11 @@ export class DeckManager {
         const initialLength = deck.cards.length;
         deck.cards = deck.cards.filter(card => card.id !== cardId);
         deck.lastModified = new Date().toISOString();
-
-        return deck.cards.length !== initialLength;
+        const deleted = deck.cards.length !== initialLength;
+        if (deleted) {
+            dispatchEvent(new CustomEvent('datachanged'));
+        }
+        return deleted;
     }
 
     updateDeck(deckId, updates) {
@@ -82,6 +91,7 @@ export class DeckManager {
         if (!deck) return null;
 
         Object.assign(deck, updates, { lastModified: new Date().toISOString() });
+        dispatchEvent(new CustomEvent('datachanged'));
         return deck;
     }
 

@@ -25,6 +25,12 @@ class App {
 
         // Load initial theme
         this.loadTheme();
+
+        // Add listener for data changes to trigger save
+        document.addEventListener('datachanged', () => {
+            console.log('[DEBUG] datachanged event detected, saving data...');
+            this.storageManager.saveData();
+        });
     }
 
     setupEventListeners() {
