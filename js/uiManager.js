@@ -169,6 +169,7 @@ export class UIManager {
         Array.from(document.querySelectorAll('.study-btn')).forEach(btn => {
             btn.addEventListener('click', e => {
                 e.stopPropagation();
+                console.log(`[DEBUG] Study button clicked for deck: ${btn.dataset.deckId}`);
                 this.startStudySession(btn.dataset.deckId);
             });
         });
@@ -176,6 +177,7 @@ export class UIManager {
         Array.from(document.querySelectorAll('.edit-btn')).forEach(btn => {
             btn.addEventListener('click', e => {
                 e.stopPropagation();
+                console.log(`[DEBUG] Edit Deck button clicked for deck: ${btn.dataset.deckId}`);
                 this.editDeck(btn.dataset.deckId);
             });
         });
@@ -183,6 +185,7 @@ export class UIManager {
         Array.from(document.querySelectorAll('.delete-btn')).forEach(btn => {
             btn.addEventListener('click', e => {
                 e.stopPropagation();
+                console.log(`[DEBUG] Delete Deck button clicked for deck: ${btn.dataset.deckId}`);
                 this.deleteDeck(btn.dataset.deckId);
             });
         });
@@ -190,6 +193,7 @@ export class UIManager {
         Array.from(document.querySelectorAll('.add-card-btn')).forEach(btn => {
             btn.addEventListener('click', e => {
                 e.stopPropagation();
+                console.log(`[DEBUG] Add Card button clicked for deck: ${btn.dataset.deckId}`);
                 this.showCardModal(btn.dataset.deckId);
             });
         });
