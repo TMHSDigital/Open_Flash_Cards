@@ -451,7 +451,9 @@ export class UIManager {
 
         modal.innerHTML = `
             <div class="modal-content">
-                <button type="button" class="modal-close" aria-label="Close">&times;</button>
+                <button type="button" class="modal-close icon-only" aria-label="Close">
+                    <svg viewBox="0 0 24 24" class="icon"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+                </button>
                 <h3>${deck.name} - Cards</h3>
                 ${cardListHTML}
                 <div class="modal-actions">
@@ -580,7 +582,9 @@ export class UIManager {
                 // Add a specific class for content to help with focus trap exclusion if needed
                 modal.innerHTML = `
                     <div class="modal-content modal-template-content" style="max-width: 600px;">
-                        <button type="button" class="modal-close" aria-label="Close">&times;</button>
+                        <button type="button" class="modal-close icon-only" aria-label="Close">
+                            <svg viewBox="0 0 24 24" class="icon"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+                        </button>
                         <h3>Bulk Import Template</h3>
                         <pre class="bulk-import-preview">${template}</pre>
                         <div class="modal-actions">

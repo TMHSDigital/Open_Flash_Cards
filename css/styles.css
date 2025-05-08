@@ -679,4 +679,21 @@ select:focus {
     padding: 0.1em 0.4em;
     border-radius: var(--radius-sm);
     font-size: 0.95em;
+}
+
+/* SVG Icons */
+.icon {
+    display: inline-block;
+    width: 1em; /* Adjust size relative to font-size of parent */
+    height: 1em;
+    vertical-align: -0.125em; /* Adjust for better alignment with text */
+    fill: currentColor; /* Inherit color from parent text */
+}
+
+.btn .icon {
+    margin-right: var(--spacing-xs); /* Space between icon and text in a button */
+}
+
+.btn .icon-only {
+    margin-right: 0;
 } 

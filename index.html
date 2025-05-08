@@ -22,7 +22,10 @@
             <div class="tab-content active" id="decks-tab">
                 <div class="decks-header">
                     <h2>My Decks</h2>
-                    <button id="create-deck" class="btn primary">Create New Deck</button>
+                    <button id="create-deck" class="btn primary">
+                        <svg viewBox="0 0 24 24" class="icon"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg>
+                        Create New Deck
+                    </button>
                 </div>
                 <div id="decks-list" class="decks-grid"></div>
             </div>
@@ -80,7 +83,9 @@
     <!-- Modals -->
     <div id="deck-modal" class="modal">
         <div class="modal-content">
-            <button type="button" class="modal-close" id="close-deck-modal" aria-label="Close">&times;</button>
+            <button type="button" class="modal-close icon-only" id="close-deck-modal" aria-label="Close">
+                <svg viewBox="0 0 24 24" class="icon"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+            </button>
             <h3>Create New Deck</h3>
             <form id="deck-form">
                 <input type="text" id="deck-name" placeholder="Deck Name" required>
@@ -96,6 +101,9 @@
 
     <div id="card-modal" class="modal">
         <div class="modal-content">
+            <button type="button" class="modal-close icon-only" aria-label="Close">
+                <svg viewBox="0 0 24 24" class="icon"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+            </button>
             <h3>Add New Card</h3>
             <div class="toggle-group" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
                 <button type="button" class="btn" id="single-add-toggle" aria-pressed="true">Single</button>
